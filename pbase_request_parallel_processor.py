@@ -37,9 +37,6 @@ from dataclasses import (
 )  # for storing API inputs, outputs, and metadata
 import dotenv
 
-PREDIBASE_STAGING_SERVERLESS_URL = (
-    "https://serving.staging.predibase.com/%s/deployments/v2/llms/%s/generate"
-)
 PREDIBASE_PROD_SERVERLESS_URL = (
     "https://serving.app.predibase.com/%s/deployments/v2/llms/%s/generate"
 )
@@ -333,7 +330,6 @@ if __name__ == "__main__":
     parser.add_argument("--max_requests_per_minute", type=int, default=3_000 * 0.5)
     parser.add_argument("--max_attempts", type=int, default=5)
     parser.add_argument("--logging_level", default=logging.INFO)
-    parser.add_argument("--stage", default="prod", choices=["staging", "prod"])
     args = parser.parse_args()
 
     if args.save_filepath is None:
@@ -343,10 +339,7 @@ if __name__ == "__main__":
     if os.path.exists(args.save_filepath):
         os.remove(args.save_filepath)
 
-    if args.stage == "staging":
-        predibase_serverless_url = PREDIBASE_STAGING_SERVERLESS_URL
-    else:
-        predibase_serverless_url = PREDIBASE_PROD_SERVERLESS_URL
+    predibase_serverless_url = PREDIBASE_PROD_SERVERLESS_URL
     request_url = predibase_serverless_url % (
         args.tenant_id,
         args.deployment_base_model,
