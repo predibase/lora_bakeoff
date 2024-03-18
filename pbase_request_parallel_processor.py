@@ -6,14 +6,14 @@ Streaming:
 
 curl -i https://serving.app.predibase.com/6dcb0c/deployments/v2/llms/mistral-7b-instruct/v1/chat/completions \
     -H "Content-Type: application/json" \
-    -H "Authorization: Bearer pb_hVZH7aX9WLethkMmKZ6RBg" \
+    -H "Authorization: Bearer $PREDIBASE_API_TOKEN" \
     -d '{"model": "", "messages": [{ "role": "user", "content": "How many helicopters can a human eat in one sitting?"}],"max_tokens": 100}'
     
 
-curl -i -d '{"inputs": "What is your name?", "parameters": {"api_token": "pb_hVZH7aX9WLethkMmKZ6RBg", "adapter_source": "pbase", "max_new_tokens": 128}}' \
+curl -i -d '{"inputs": "What is your name?", "parameters": {"api_token": "$PREDIBASE_API_TOKEN", "adapter_source": "pbase", "max_new_tokens": 128}}' \
     -H "Content-Type: application/json" \
     -X POST https://serving.app.predibase.com/6dcb0c/deployments/v2/llms/mistral-7b-instruct/generate \
-    -H "Authorization: Bearer pb_hVZH7aX9WLethkMmKZ6RBg"
+    -H "Authorization: Bearer $PREDIBASE_API_TOKEN"
 
 Features:
 - Streams requests from file, to avoid running out of memory for giant jobs
