@@ -1,0 +1,9 @@
+python-dotenv
+pyarrow
+pandas
+scikit-learn
+tiktoken
+torchmetrics
+nltk
+inflect
+predibase
