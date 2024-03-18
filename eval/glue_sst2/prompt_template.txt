@@ -1,0 +1,5 @@
+Given the following sentence:
+
+"{sentence}"
+
+Respond with 0 if the sentiment of the sentence is negative and 1 if the sentiment of the sentence is positive.

@@ -1,0 +1,118 @@
+import os
+import json
+import argparse
+import dotenv
+from utils.dataset_loading import get_dataframe_from_local_file
+
+def append_to_jsonl(data, filename: str) -> None:
+    """Append a json payload to the end of a jsonl file."""
+    json_string = json.dumps(data)
+    with open(filename, "a") as f:
+        f.write(json_string + "\n")
+
+def get_prompt_template(main_args):
+    if (
+        "prompt_template" in main_args.__dict__
+        and "prompt_template_file" in main_args.__dict__
+        and main_args.prompt_template is not None
+        and main_args.prompt_template_file is not None
+    ):
+        raise ValueError(
+            "Only one of --prompt_template and --prompt_template_file can be specified."
+        )
+
+    if hasattr(main_args, "prompt_template") and main_args.prompt_template is not None:
+        return main_args.prompt_template
+    return open(main_args.prompt_template_file).read()
+
+def main(main_args):
+    # Environment variables.
+    dotenv.load_dotenv()
+
+    # Clear the output file path if it already exists.
+    output_file_path = os.path.join(main_args.outdir, "requests.jsonl")
+    if os.path.exists(output_file_path):
+        os.remove(output_file_path)
+
+    # Get the dataset from or local.
+    df = get_dataframe_from_local_file(main_args)
+
+    os.makedirs(main_args.outdir, exist_ok=True)
+
+    prompt_template = get_prompt_template(main_args)
+
+    for df_index, example in df.iterrows():
+        realized_prompt = prompt_template.format(**example)
+
+        # Truncate the realized prompt to a token cap.
+        realized_prompt = realized_prompt[: int(main_args.max_prompt_length_chars)]
+
+        if main_args.adapter_id is not None and main_args.adapter_id != "None":
+            # Adapter querying.
+            data = {
+                "inputs": realized_prompt,
+                "parameters": {
+                    "api_token": os.getenv("PREDIBASE_API_TOKEN"),
+                    "adapter_source": main_args.adapter_source,
+                    "adapter_id": main_args.adapter_id,
+                    "max_new_tokens": int(main_args.max_new_tokens),
+                },
+                # This is needed for matching responses back to examples during post-processing.
+                "metadata": {"df_index": df_index},
+            }
+        else:
+            # Base model querying.
+            data = {
+                "inputs": realized_prompt,
+                "parameters": {
+                    "api_token": os.getenv("PREDIBASE_API_TOKEN"),
+                    "max_new_tokens": int(main_args.max_new_tokens),
+                },
+                # This is needed for matching responses back to examples during post-processing.
+                "metadata": {"df_index": df_index},
+            }
+
+        append_to_jsonl(data, output_file_path)
+
+
+if __name__ == "__main__":
+    # Environment variables.
+    dotenv.load_dotenv()
+
+    parser = argparse.ArgumentParser(
+        prog="Generate LLM requests to Predibase.",
+        description="Generate LLM requests to Predibase.",
+    )
+
+    parser.add_argument(
+        "--dataset",
+        help="Local filepath",
+        required=True,
+    )
+
+    parser.add_argument(
+        "--split_column", help="The name of the split column.", default=None
+    )
+    parser.add_argument(
+        "--split_column_value", help="The value of the split column.", default=None
+    )
+
+    parser.add_argument("--num_examples", default=None)
+
+    # Predibase adapter arguments.
+    parser.add_argument("--adapter_source", default="pbase", required=False)
+    parser.add_argument("--adapter_id", default=None, required=False)
+    parser.add_argument(
+        "--prompt_template",
+        help="Prompt template",
+    )
+    parser.add_argument("--prompt_template_file", help="Prompt template file")
+
+    parser.add_argument("--max_new_tokens", default=256, required=False)
+    parser.add_argument("--max_prompt_length_chars", default=1500, required=False)
+
+    # Other arguments.
+    parser.add_argument("--outdir", required=True)
+
+    main_args = parser.parse_args()
+    main(main_args)
