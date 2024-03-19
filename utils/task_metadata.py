@@ -1,21 +1,22 @@
 import os
 import yaml
 
-def get_metadata_for_task(task_dir: str) -> dict:
+TASKS_DIRECTORY = "tasks"
+
+def get_metadata_for_task(task_name: str) -> dict:
     """Return metadata for a single task."""
     metadata = {}
+    task_dir = os.path.join(TASKS_DIRECTORY, task_name)
     with open(os.path.join(task_dir, "metadata.yaml")) as f:
         metadata = yaml.safe_load(f.read())
         # Add task name based on the directory name.
         metadata["task_name"] = os.path.basename(task_dir)
     return metadata
 
-TASKS_DIRECTORY = "tasks"
-
-
-def get_metadata_for_task(task_dir: str) -> dict:
+def get_metadata_for_task(task_name: str) -> dict:
     """Return metadata for a single task."""
     metadata = {}
+    task_dir = os.path.join(TASKS_DIRECTORY, task_name)
     with open(os.path.join(task_dir, "metadata.yaml")) as f:
         metadata = yaml.safe_load(f.read())
         # Add task name based on the directory name.

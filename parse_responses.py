@@ -5,15 +5,14 @@ import argparse
 import pandas as pd
 from utils.metric_fns import METRIC_FNS
 from utils.dataset_loading import get_dataframe_from_local_file
-from utils.metadata import get_metadata_for_task, TASKS_DIRECTORY
+from utils.task_metadata import get_metadata_for_task
 
 def get_pbase_response(response_data):
     if "generated_text" in response_data[1]:
         return response_data[1]["generated_text"]
 
 def main(main_args):
-    task = f"{TASKS_DIRECTORY}/{main_args.task}"
-    task_metadata = get_metadata_for_task(task)
+    task_metadata = get_metadata_for_task(main_args.task)
     df = get_dataframe_from_local_file(task_metadata, main_args.num_examples)
     skipped = []
 

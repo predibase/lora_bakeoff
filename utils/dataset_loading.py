@@ -1,5 +1,5 @@
 import pandas as pd
-from utils.metadata import get_metadata_for_task, TASKS_DIRECTORY
+from utils.task_metadata import get_metadata_for_task
 
 def filter_on_split(df, task_metadata):
     if "split_column" not in task_metadata or task_metadata["split_column"] in [
@@ -45,8 +45,7 @@ def get_dataframe_from_local_file(task_metadata, num_examples):
     
 def load_training_data_for_task(task_name: str) -> pd.DataFrame:
     df = None
-    task = f"{TASKS_DIRECTORY}/{task_name}"
-    metadata = get_metadata_for_task(task)
+    metadata = get_metadata_for_task(task_name)
     dataset_path = f"datasets/{metadata['training_data']}"
 
     # Parse into pandas based on the file extension.

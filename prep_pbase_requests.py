@@ -2,7 +2,7 @@ import os
 import json
 import argparse
 import dotenv
-from utils.dataset_loading import get_dataframe_from_local_file, get_metadata_for_task, TASKS_DIRECTORY
+from utils.dataset_loading import get_dataframe_from_local_file, get_metadata_for_task
 
 def append_to_jsonl(data, filename: str) -> None:
     """Append a json payload to the end of a jsonl file."""
@@ -19,8 +19,7 @@ def main(main_args):
     if os.path.exists(output_file_path):
         os.remove(output_file_path)
 
-    task = f"{TASKS_DIRECTORY}/{main_args.task}"
-    task_metadata = get_metadata_for_task(task)
+    task_metadata = get_metadata_for_task(main_args.task)
 
     # Get the dataset from or local.
     df = get_dataframe_from_local_file(task_metadata, main_args.num_examples)
