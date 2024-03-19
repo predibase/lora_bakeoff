@@ -2,28 +2,13 @@ import os
 import json
 import argparse
 import dotenv
-from utils.dataset_loading import get_dataframe_from_local_file
+from utils.dataset_loading import get_dataframe_from_local_file, get_metadata_for_task, TASKS_DIRECTORY
 
 def append_to_jsonl(data, filename: str) -> None:
     """Append a json payload to the end of a jsonl file."""
     json_string = json.dumps(data)
     with open(filename, "a") as f:
         f.write(json_string + "\n")
-
-def get_prompt_template(main_args):
-    if (
-        "prompt_template" in main_args.__dict__
-        and "prompt_template_file" in main_args.__dict__
-        and main_args.prompt_template is not None
-        and main_args.prompt_template_file is not None
-    ):
-        raise ValueError(
-            "Only one of --prompt_template and --prompt_template_file can be specified."
-        )
-
-    if hasattr(main_args, "prompt_template") and main_args.prompt_template is not None:
-        return main_args.prompt_template
-    return open(main_args.prompt_template_file).read()
 
 def main(main_args):
     # Environment variables.
@@ -34,12 +19,15 @@ def main(main_args):
     if os.path.exists(output_file_path):
         os.remove(output_file_path)
 
+    task = f"{TASKS_DIRECTORY}/{main_args.task}"
+    task_metadata = get_metadata_for_task(task)
+
     # Get the dataset from or local.
-    df = get_dataframe_from_local_file(main_args)
+    df = get_dataframe_from_local_file(task_metadata, main_args.num_examples)
 
     os.makedirs(main_args.outdir, exist_ok=True)
 
-    prompt_template = get_prompt_template(main_args)
+    prompt_template = task_metadata["prompt_template"]
 
     for df_index, example in df.iterrows():
         realized_prompt = prompt_template.format(**example)
@@ -83,30 +71,13 @@ if __name__ == "__main__":
         prog="Generate LLM requests to Predibase.",
         description="Generate LLM requests to Predibase.",
     )
-
-    parser.add_argument(
-        "--dataset",
-        help="Local filepath",
-        required=True,
-    )
-
-    parser.add_argument(
-        "--split_column", help="The name of the split column.", default=None
-    )
-    parser.add_argument(
-        "--split_column_value", help="The value of the split column.", default=None
-    )
+    parser.add_argument("--task", required=True)
 
     parser.add_argument("--num_examples", default=None)
 
     # Predibase adapter arguments.
     parser.add_argument("--adapter_source", default="pbase", required=False)
     parser.add_argument("--adapter_id", default=None, required=False)
-    parser.add_argument(
-        "--prompt_template",
-        help="Prompt template",
-    )
-    parser.add_argument("--prompt_template_file", help="Prompt template file")
 
     parser.add_argument("--max_new_tokens", default=256, required=False)
     parser.add_argument("--max_prompt_length_chars", default=1500, required=False)

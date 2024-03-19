@@ -5,15 +5,19 @@ import argparse
 import pandas as pd
 from utils.metric_fns import METRIC_FNS
 from utils.dataset_loading import get_dataframe_from_local_file
+from utils.metadata import get_metadata_for_task, TASKS_DIRECTORY
 
 def get_pbase_response(response_data):
     if "generated_text" in response_data[1]:
         return response_data[1]["generated_text"]
 
 def main(main_args):
-    df = get_dataframe_from_local_file(main_args)
+    task = f"{TASKS_DIRECTORY}/{main_args.task}"
+    task_metadata = get_metadata_for_task(task)
+    df = get_dataframe_from_local_file(task_metadata, main_args.num_examples)
     skipped = []
-    metric_fn = METRIC_FNS[main_args.metric_fn]
+
+    metric_fn = METRIC_FNS[task_metadata["metric_name"]]
 
     scores = []
     with open(main_args.jsonl_responses_path) as file:
@@ -23,7 +27,7 @@ def main(main_args):
             df_index = metadata["df_index"]
             generated_text = get_pbase_response(response_data)
             target_text = df.loc[df.index == df_index][
-                main_args.target_text_column
+                task_metadata["target_col"]
             ].item()
             if generated_text is not None:
                 score = metric_fn(generated_text, target_text)
@@ -32,7 +36,7 @@ def main(main_args):
                 skipped.append(df_index)
 
     overall_score = sum(scores) / len(scores)
-    print(f"Overall {main_args.metric_fn}: {overall_score:.3f}")
+    print(f"Overall {task_metadata['metric_name']}: {overall_score:.3f}")
     print(f"Skipped {len(skipped)} examples: {skipped}")
 
     with open(
@@ -43,11 +47,11 @@ def main(main_args):
     with open(
         os.path.join(
             os.path.dirname(main_args.jsonl_responses_path),
-            f"{main_args.metric_fn}.txt",
+            f"{task_metadata['metric_name']}.txt",
         ),
         "w",
     ) as file:
-        file.write(f"Overall {main_args.metric_fn}: {overall_score:.3f}")
+        file.write(f"Overall {task_metadata['metric_name']}: {overall_score:.3f}")
 
 
 if __name__ == "__main__":
@@ -57,21 +61,7 @@ if __name__ == "__main__":
     )
     parser.add_argument("--jsonl_responses_path", required=True)
 
-    parser.add_argument("--target_text_column", required=True)
-    parser.add_argument("--metric_fn", required=True)
-
-    parser.add_argument(
-        "--dataset",
-        help="Local filepath",
-        required=True,
-    )
-
-    parser.add_argument(
-        "--split_column", help="The name of the split column.", default=None
-    )
-    parser.add_argument(
-        "--split_column_value", help="The value of the split column.", default=None
-    )
+    parser.add_argument("--task", required=True)
 
     parser.add_argument("--num_examples", default=None)
 
