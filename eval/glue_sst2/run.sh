@@ -1,6 +1,5 @@
 ## Prepare requests.
 python prep_pbase_requests.py \
-	--adapter_source 'pbase' \
 	--outdir 'eval/glue_sst2/results' \
 	--task 'glue_sst2' \
 	--num_examples '1000' \

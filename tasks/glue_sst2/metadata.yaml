@@ -4,7 +4,6 @@ metric_name: binary_accuracy_flex
 split_column_value: 1
 data_path: datasets/glue_sst2_full.csv
 target_col: label
-split: validation
 split_column: split
 split_column_value: 1
 prompt_template: >-
