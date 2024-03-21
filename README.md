@@ -1,5 +1,7 @@
 This is the demo repo for the LoRA Bakeoff!
 
+To use this eval harness, please set your `PREDIBASE_API_TOKEN` in `.env` before running the harness.
+
 In the `tasks` directory, there is a subdirectory named `glue_sst2`, and inside of that subdirectory, there is a file named `metadata.yaml`. This is an example of the task-based organizational structure that the harness relies on. To add another task to the directory, it must follow the same convention: `tasks/{task_name}/metadata.yaml`.
 
 The `metadata.yaml` file includes metadata like:
