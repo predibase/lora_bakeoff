@@ -34,7 +34,8 @@ def get_all_metadata() -> list:
 
     metadata_list = []
     for task_dir in task_dirs:
-        metadata_list.append(get_metadata_for_task(task_dir))
+        task_name = os.path.basename(task_dir)
+        metadata_list.append(get_metadata_for_task(task_name))
 
     return sorted(metadata_list, key=lambda x: x["task_name"])
 
