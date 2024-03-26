@@ -18,3 +18,10 @@ In the `eval/glue_sst2` directory, the `run.sh` script serves as an example scri
 - `parse_responses.py` -- Calculates a metric score over the responses from the adapter (metrics listed in `metric_fns.py`)
 
 In particular, the `task` flag refers to the name of the subdirectory containing the relevant `metadata.yaml` file.
+
+To run the `run.sh` script, you will need to:
+1. Train your own adapter on the provided dataset and switch out the `adapter_id` parameter in the script with the model repo name and model version of your fine-tuned adapter.
+2. Change the `deployment_base_model` parameter to the name of the deployment you would like to use
+3. Change the `tenant_id` parameter to your tenant ID.
+
+These three parameters can be found in the Predibase UI under "Models", "Prompt", and "Settings", respectively.
