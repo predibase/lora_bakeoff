@@ -1,7 +1,7 @@
 # Lora Land: 310 Fine-tuned LLMs that Rival GPT-4
 
 - Full technical report. (TODO: Add arxiv link).
-- [LoRA Land application](https://predibase.com/lora-land).
+- [LoRA Land web application](https://predibase.com/lora-land).
 - [LoRA Land blog post](https://predibase.com/blog/lora-land-fine-tuned-open-source-llms-that-outperform-gpt-4).
 
 ![img](img/header.png)
