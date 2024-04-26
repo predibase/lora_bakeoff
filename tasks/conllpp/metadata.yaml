@@ -1,0 +1,33 @@
+dataset_name: conllpp
+dataset_description: Named entity recognition
+adapter_ui_name: Named Entity Recognition (CoNLL++)
+adapter_category: Named Entity Recognition
+metric_name: rouge
+split_column_value: 1
+data_path: conllpp_edited.csv
+training_data: conllpp_edited.csv
+target_col: output
+dataset_link: https://huggingface.co/datasets/conllpp
+dataset: s3://tim-adapterland/conllpp_edited.csv
+split: validation
+split_column: split
+split_column_value: 1
+prompt_template: |-
+  Your task is a Named Entity Recognition (NER) task. Predict the category of
+  each entity, then place the entity into the list associated with the 
+  category in an output JSON payload. Below is an example:
+
+  Input: EU rejects German call to boycott British lamb . Output: {{"person":
+  [], "organization": ["EU"], "location": [], "miscellaneous": ["German",
+  "British"]}}
+
+  Now, complete the task.
+
+  Input: {input} Output: 
+expected_output_format: json
+input_columns: input
+num_examples:
+  train: 14041
+  validation: 3250
+  test: 3453
+split_used_for_evaluation: test

@@ -1,0 +1,30 @@
+dataset_name: tldr_news
+dataset_description: Headline generation given news content
+adapter_ui_name: News Headline Generation (tldr_news)
+adapter_category: Summarization
+metric_name: rouge
+split_column_value: 2
+data_path: tldr_news_full.csv
+training_data: tldr_news_full.csv
+target_col: headline
+dataset_link: https://huggingface.co/datasets/JulesBelveze/tldr_news
+dataset: s3://tim-adapterland/tldr_news_full.csv
+split: validation
+split_column: split
+split_column_value: 2
+prompt_template: >-
+  The following passage is content from a news report. Please summarize this
+  passage in one sentence or less.
+
+
+  Passage: {content}
+
+
+  Summary: 
+expected_output_format: text
+input_columns: content
+num_examples:
+  train: 7138
+  test: 794
+  total: 7932
+split_used_for_evaluation: test

@@ -1,0 +1,58 @@
+dataset_name: jigsaw
+dataset_description: Toxic comment classification
+adapter_ui_name: Toxicity Detection (Jigsaw)
+adapter_category: Sentiment Detection
+metric_name: binary_accuracy_flex
+split_column_value: 1
+data_path: jigsaw_full.csv
+training_data: jigsaw_full.csv
+target_col: is_toxic
+dataset_link: https://www.kaggle.com/c/jigsaw-unintended-bias-in-toxicity-classification
+dataset: s3://tim-adapterland/jigsaw_full.csv
+split: validation
+split_column: split
+split_column_value: 1
+prompt_template: |
+  You are a helpful, precise, detailed, and concise artificial intelligence
+  assistant.  You are a very intelligent and sensitive, having a keen ability
+  to discern whether or not a text message is toxic.  You can also be trusted
+  with following the instructions given to you precisely, without deviations.
+
+  In this task, you are asked to decide whether or not comment text is toxic.
+
+  Toxic content harbors negativity towards a person or a group, for instance:
+    - stereotyping (especially using negative stereotypes)
+    - disparaging a person's gender -- as in "male", "female", "men", "women"
+    - derogatory language or slurs
+    - racism -- as in discriminating toward people who are "black", "white"
+    - cultural appropriation
+    - mockery or ridicule
+    - sexual objectification
+    - homophobia -- bullying people who are "homosexual", "gay", "lesbian"
+    - historical insensitivity
+    - disrespecting religion -- as in "christian", "jewish", "muslim"
+    - saying that certain groups are less worthy of respect
+    - insensitivity to health conditions -- as in "psychiatric/mental illness"
+
+  Read the comment text provided and predict whether or not the comment text
+  is toxic.  If comment text is toxic according to the instructions, then the
+  answer is "yes" (return "yes"); otherwise, the answer is "no" (return "no").
+
+  Output the answer only as a "yes" or a "no"; do not provide explanations.
+
+  Please, never return empty output; always return a "yes" or a "no" answer.
+
+  You will be evaluated based on the following criteria:
+  - The generated answer is always "yes" or "no" (never the empty string, "").
+  - The generated answer is correct for the comment text presented to you.
+
+  ### Comment Text: {comment_text}
+
+  ### Comment Text Is Toxic (Yes/No):
+expected_output_format: text
+input_columns: comment_text
+num_examples:
+  train: 159571
+  test: 153164
+  total: 312735
+split_used_for_evaluation: test

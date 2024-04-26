@@ -1,0 +1,29 @@
+dataset_name: tldr_news
+dataset_description: Content generation given a headline
+adapter_ui_name: News Content Generation (tldr_news)
+adapter_category: Other
+metric_name: rouge
+split_column_value: 2
+data_path: tldr_news_full.csv
+training_data: tldr_news_full.csv
+target_col: content
+dataset_link: https://huggingface.co/datasets/JulesBelveze/tldr_news
+dataset: s3://tim-adapterland/tldr_news_full.csv
+split: validation
+split_column_value: 2
+prompt_template: >-
+  The following headline is the headline of a news report. Please write the
+  content of the news passage based on only this headline.
+
+
+  Headline: {headline}
+
+
+  Content: 
+expected_output_format: text
+input_columns: headline
+num_examples:
+  train: 7138
+  test: 794
+  total: 7932
+split_used_for_evaluation: test

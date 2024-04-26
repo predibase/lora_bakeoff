@@ -1,0 +1,45 @@
+dataset_name: viggo
+dataset_description: Translation of video game meaning representations to natural language
+adapter_ui_name: Structured-to-Text (viggo)
+adapter_category: Structured-to-Text
+metric_name: rouge
+split_column_value: 1
+data_path: viggo_full.csv
+training_data: viggo_full.csv
+target_col: target
+dataset_link: https://huggingface.co/datasets/GEM/viggo
+dataset: s3://tim-adapterland/viggo_full.csv
+split: validation
+split_column: split
+split_column_value: 1
+prompt_template: >-
+    Here are two examples of meaning representations being translated into plain
+    English:
+
+
+    Example representation:  "request(release_year[2014], specifier[terrible])"
+
+    Example output: "Were there even any terrible games in 2014?"
+
+
+    Example representation: "give_opinion(name[Little Nightmares], rating[good],
+    genres[adventure, platformer, puzzle], player_perspective[side view])"
+
+    Example output: "Adventure games that combine platforming and puzzles can be
+    frustrating to play, but the side view perspective is perfect for them.
+    That's why I enjoyed playing Little Nightmares."
+
+
+    Using the previous examples as guidelines, please translate the following
+    representation into plain English:
+
+    Representation: {meaning_representation}
+
+    Output:
+expected_output_format: text
+input_columns: meaning_representation
+num_examples:
+  train: 5103
+  validation: 714
+  test: 1083
+split_used_for_evaluation: test

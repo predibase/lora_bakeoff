@@ -1,0 +1,42 @@
+dataset_name: webnlg
+dataset_description: Translation of triples to natural language
+adapter_ui_name: WebNLG (Web-based Natural Language Generation)
+adapter_category: Reasoning
+metric_name: rouge
+split_column_value: 1
+data_path: webnlg.jsonl
+training_data: webnlg.jsonl
+target_col: lex_preprocessed
+dataset_link: https://huggingface.co/datasets/web_nlg (release_v3.0_en)
+dataset: webnlg.jsonl
+split: validation
+split_column: split
+split_column_value: 1
+prompt_template: >-
+  Here is one example of meaning representations being translated into plain
+  English:
+
+
+  Example representation: Allama_Iqbal_International_Airport | runwayName |
+  "18L/36R"
+
+
+  Example output: The runway name at Allama Iqbal International airport is
+  18L/36R.
+
+
+  Using the previous example as a guideline, please translate the following
+  representation into plain English:
+
+
+  Representation: {modified_triple_set_preprocessed}
+
+
+  Output:
+expected_output_format: text
+input_columns: modified_triple_set_preprocessed
+num_examples:
+  train: 13211
+  validation: 1667
+  test: 5713
+split_used_for_evaluation: test

@@ -1,0 +1,61 @@
+dataset_name: customer_support
+dataset_description: Customer support call classification given call transcript
+adapter_ui_name: Customer Support Automation
+adapter_category: Topic Identification
+metric_name: customer_support_accuracy
+split_column_value: 1
+data_path: customer_support_split.csv
+training_data: customer_support_split.csv
+target_col: task
+dataset_link: https://github.com/cricketclub/gridspace-stanford-harper-valley
+dataset: s3://tim-adapterland/customer_support_split.csv
+split: validation
+split_column: split
+split_column_value: 1
+prompt_template: >-
+  Consider the case of a customer contacting the support center.
+
+  The term "task type" refers to the reason for why the customer contacted
+  support.
+
+
+  ### The possible task types are: ### 
+
+  - replace card
+
+  - transfer money
+
+  - check balance
+
+  - order checks
+
+  - pay bill
+
+  - reset password
+
+  - schedule appointment
+
+  - get branch hours
+
+  - none of the above
+
+
+  Summarize the issue/question/reason that drove the customer to contact
+  support:
+
+
+  ### Transcript: {text}
+
+
+  ### Task Type:
+
+
+  test_transcript = 
+expected_output_format: text
+input_columns: text
+num_examples:
+  train: 1245
+  validation: 245
+  test: 391
+  total: 1881
+split_used_for_evaluation: test

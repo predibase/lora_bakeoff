@@ -1,0 +1,30 @@
+dataset_name: wikisql
+dataset_description: SQL generation given a table and question
+adapter_ui_name: WikiSQL (SQL Generation)
+adapter_category: Reasoning
+metric_name: rouge
+split_column_value: 2
+data_path: wikisql_half_split.csv
+training_data: wikisql_half_split.csv
+target_col: sql
+dataset_link: https://huggingface.co/datasets/wikisql
+dataset: s3://tim-adapterland/wikisql_half_split.csv
+split: validation
+split_column: split
+split_column_value: 2
+prompt_template: >-
+  Considering the provided database schema and associated query, produce SQL
+  code to retrieve the answer to the query.
+
+  ### Database Schema: {table}
+
+  ### Query: {question}
+
+  ### SQL: 
+expected_output_format: SQL
+input_columns: table, question
+num_examples:
+  train: 56355
+  validation: 8421
+  test: 15878
+split_used_for_evaluation: test

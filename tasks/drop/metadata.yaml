@@ -1,0 +1,31 @@
+dataset_name: drop
+dataset_description: Question answering given a passage
+adapter_ui_name: Question Answering (drop)
+adapter_category: Other
+metric_name: rouge
+split_column_value: 2
+data_path: drop_split_processed.csv
+training_data: drop_split_processed.csv
+target_col: answer
+dataset_link: https://huggingface.co/datasets/drop
+dataset: s3://tim-adapterland/drop_split_processed.csv
+split_column: split
+split: validation
+split_column_value: 2
+prompt_template: >-
+  Given a passage, you need to accurately identify and extract relevant spans
+  of text that answer specific questions. Provide concise and coherent
+  responses based on the information present in the passage.
+
+
+  ### Passage: {passage}
+
+  ### Question: {question}
+
+  ### Answer:
+expected_output_format: json
+input_columns: passage, question
+num_examples:
+  train: 77400
+  validation: 9535
+split_used_for_evaluation: validation

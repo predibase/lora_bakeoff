@@ -1,0 +1,33 @@
+dataset_name: glue_wnli
+dataset_description: Pronoun resolution
+adapter_ui_name: WNLI (Winograd Schema Challenge)
+adapter_category: Language
+metric_name: binary_accuracy_flex
+split_column_value: 1
+data_path: glue_wnli_full.csv
+training_data: glue_wnli_full.csv
+target_col: label
+dataset_link: https://huggingface.co/datasets/glue/viewer/wnli
+dataset: s3://tim-adapterland/glue_wnli_full.csv
+split: validation
+split_column: split
+split_column_value: 1
+prompt_template: >-
+  You are given two sentences below, Sentence 1 and Sentence 2. If Sentence 2
+  correctly identifies the object referenced by a pronoun in Sentence 1,
+  please return 1. Otherwise, please return 0.
+
+
+  ### Sentence 1: {sentence1}
+
+
+  ### Sentence 2: {sentence2}
+
+
+  ### Label: 
+num_examples:
+  train: 635
+  validation: 71
+  test: 146
+  total: 852
+split_used_for_evaluation: validation

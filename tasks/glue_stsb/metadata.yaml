@@ -1,0 +1,34 @@
+dataset_name: glue_stsb
+dataset_description: How similar are the sentences?
+adapter_ui_name: Sentence Similarity (STSB)
+adapter_category: Academic Benchmarks
+metric_name: stsb
+split_column_value: 1
+data_path: glue_stsb_full.csv
+training_data: glue_stsb_full.csv
+target_col: label
+dataset_link: https://huggingface.co/datasets/glue/viewer/stsb
+dataset: s3://tim-adapterland/glue_stsb_full.csv
+split: validation
+split_column: split
+split_column_value: 1
+prompt_template: >-
+  You are given two sentences below, Sentence 1 and Sentence 2. Please
+  determine, on a scale from 0 to 5, with 0 being least similar and 5 being
+  most similar, how similar the two sentences are:
+
+
+  ### Sentence 1: {sentence1}
+
+
+  ### Sentence 2: {sentence2}
+
+
+  ### Similarity Score: 
+expected_output_format: number
+input_columns: sentence1, sentence2
+num_examples:
+  train: 5749
+  validation: 1500
+  test: 1379
+split_used_for_evaluation: validation

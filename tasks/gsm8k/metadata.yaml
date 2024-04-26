@@ -1,0 +1,24 @@
+dataset_name: gsm8k
+dataset_description: Grade school math problems
+adapter_ui_name: Grade School Math (gsm8k)
+adapter_category: Math
+metric_name: gsm8k_regex
+split_column_value: 2
+data_path: gsm8k_full.csv
+training_data: gsm8k_full.csv
+target_col: answer
+dataset_link: https://huggingface.co/datasets/gsm8k (main)
+dataset: s3://tim-adapterland/gsm8k_full.csv
+split: validation
+split_column: split
+split_column_value: 2
+prompt_template: |-
+  Please answer the following question: {question}
+
+  Answer:
+expected_output_format: text
+input_columns: question
+num_examples:
+  train: 7473
+  test: 1319
+split_used_for_evaluation: test
