@@ -1,4 +1,61 @@
-This is the demo repo for the LoRA Bakeoff!
+# Lora Land: 310 Fine-tuned LLMs that Rival GPT-4
+
+- Full technical report. (TODO: Add arxiv link).
+- [LoRA Land web application](https://predibase.com/lora-land).
+- [LoRA Land blog post](https://predibase.com/blog/lora-land-fine-tuned-open-source-llms-that-outperform-gpt-4).
+
+![img](img/header.png)
+
+Low Rank Adaptation (LoRA) has emerged as one of the most widely adopted methods
+for Parameter Efficient Fine-Tuning (PEFT) of Large Language Models (LLMs). LoRA
+reduces the number of trainable parameters and memory usage while achieving comparable
+performance to full fine-tuning. We aim to assess the viability of training and serving LLMs
+fine-tuned with LoRA in real-world applications. First, we measure the quality of LLMs
+fine-tuned with quantized low rank adapters across 10 base models and 31 tasks for a total of
+310 models. We find that 4-bit LoRA fine-tuned models outperform base models by 34 points
+and GPT-4 by 10 points on average. Second, we investigate the most effective base models
+for fine-tuning and assess the correlative and predictive capacities of dataset complexity
+heuristics in forecasting the outcomes of fine-tuning. Finally, we evaluate the latency and
+concurrency capabilities of [LoRAX](https://github.com/predibase/lorax), an open-source LLM serving framework that facilitates
+the deployment of multiple LoRA fine-tuned models on a single GPU using shared base
+model weights and dynamic adapter loading. We use LoRAX to develop [LoRA Land](https://predibase.com/lora-land), a
+web application that hosts 25 LoRA fine-tuned Mistral-7B LLMs on a single NVIDIA A100
+GPU with 80GB memory. This demonstration highlights the quality and cost-effectiveness
+of employing multiple specialized LLMs over a single, general-purpose LLM.
+
+## Tasks
+
+The preprocessing code, prompt templates, and splits for all of our experiments can be found in the `datasets/` directory.
+
+![img](img/tasks.png)
+
+## Prompt design
+
+![img](img/prompt_design.png)
+
+![img](img/prompt_examples.png)
+
+## Base models
+
+![img](img/base_models.png)
+
+## Training configuration template
+
+![img](img/training_config.png)
+
+Based on [Ludwig](https://ludwig.ai/latest/).
+
+## Results
+
+![img](img/performance_lift.png)
+
+![img](img/full_table.png)
+
+## Meta-correlations betweendataset complexity and model quality
+
+![img](img/meta_correlations.png)
+
+## Evaluation Harness
 
 To use this eval harness, please set your `PREDIBASE_API_TOKEN` in `.env` before running the harness.
 
@@ -25,3 +82,32 @@ To run the `run.sh` script, you will need to:
 3. Change the `tenant_id` parameter to your tenant ID.
 
 These three parameters can be found in the Predibase UI under "Models", "Prompt", and "Settings", respectively.
+
+## LoRAX Benchmarking
+
+See `lorax_load_test.js`.
+
+Sample command:
+
+```
+k6 run --env CONCURRENT_REQUESTS=2 --env NUM_INPUT_WORDS_LOWER_BOUND=90 --env NUM_INPUT_WORDS_UPPER_BOUND=110 --env MAX_NEW_TOKENS_LOWER_BOUND=90 --env MAX_NEW_TOKENS_UPPER_BOUND=110 --env SERVING_GATEWAY=serving.app.predibase.com --env TENANT=fd6c79 --env DEPLOYMENT_NAME=llama-2-7b-chat --env AUTH_TOKEN=pb_jcN0OPMdWt-yrgIg0aBnTA load_test.js
+```
+
+## Web application
+
+[LoRA Land](https://predibase.com/lora-land)
+
+![img](img/lora_land.png)
+
+
+## Citation
+
+```
+@misc{loraland2024,
+    title = {LoRA Land: 310 Fine-tuned LLMs that Rival GPT-4, A Technical Report},
+    url = {https://predibase.com/blog/lora-land-fine-tuned-open-source-llms-that-outperform-gpt-4},
+    author = {Justin Zhao, Timothy Wang, Wael Abid, Geoffrey Angus, Arnav Garg, Jeffery Kinnison, Piero Molino, Travis Addair, Devvret Rishi},
+    month = {April},
+    year = {2024}
+}
+```
