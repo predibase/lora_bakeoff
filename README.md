@@ -1,4 +1,4 @@
-# Lora Land
+# Lora Land: 310 Fine-tuned LLMs that Rival GPT-4
 
 - Full technical report. (TODO: Add arxiv link).
 - [LoRA Land application](https://predibase.com/lora-land).
@@ -22,8 +22,6 @@ model weights and dynamic adapter loading. We use LoRAX to develop [LoRA Land](h
 web application that hosts 25 LoRA fine-tuned Mistral-7B LLMs on a single NVIDIA A100
 GPU with 80GB memory. This demonstration highlights the quality and cost-effectiveness
 of employing multiple specialized LLMs over a single, general-purpose LLM.
-
-![img](img/lora_land.png)
 
 ## Tasks
 
@@ -88,6 +86,13 @@ Sample command:
 ```
 k6 run --env CONCURRENT_REQUESTS=2 --env NUM_INPUT_WORDS_LOWER_BOUND=90 --env NUM_INPUT_WORDS_UPPER_BOUND=110 --env MAX_NEW_TOKENS_LOWER_BOUND=90 --env MAX_NEW_TOKENS_UPPER_BOUND=110 --env SERVING_GATEWAY=serving.app.predibase.com --env TENANT=fd6c79 --env DEPLOYMENT_NAME=llama-2-7b-chat --env AUTH_TOKEN=pb_jcN0OPMdWt-yrgIg0aBnTA load_test.js
 ```
+
+## Web application
+
+[LoRA Land](https://predibase.com/lora-land)
+
+![img](img/lora_land.png)
+
 
 ## Citation
 
