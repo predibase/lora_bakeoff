@@ -39,6 +39,10 @@ The preprocessing code, prompt templates, and splits for all of our experiments 
 
 ![img](img/base_models.png)
 
+## Training configuration template
+
+![img](img/training_config.png)
+
 ## Results
 
 ![img](img/performance_lift.png)
