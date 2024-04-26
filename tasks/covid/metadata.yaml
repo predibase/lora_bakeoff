@@ -1,0 +1,59 @@
+dataset_name: covid
+dataset_description: Sentiment detection of COVID-19 tweets
+adapter_ui_name: Sentiment Detection (COVID-19)
+adapter_category: Sentiment Detection
+metric_name: covid_accuracy
+split: None
+split_column_value: None
+data_path: Corona_NLP_test.csv
+training_data: Corona_NLP_train.csv
+target_col: Sentiment
+dataset_link: https://www.kaggle.com/datatattle/covid-19-nlp-text-classification
+dataset: s3://tim-adapterland/Corona_NLP_test.csv
+prompt_template: >-
+  During the COVID-19 pandemic, Twitter users expressed a variety of opinions
+  about government policy, business decisions, and social norms adopted to
+  reduce the spread of the virus. These opinions can be classified into one of
+  five sentiment types.
+
+
+  ### The possible sentiment types are: ###
+
+
+  - Extremely Positive
+
+
+  - Positive
+
+
+  - Neutral
+
+
+  - Negative
+
+
+  - Extremely Negative
+
+
+  Determine the sentiment of the following tweet using the tweet's text, the
+  date and time it was posted, and the location it was posted from. Assign
+  exactly one type of sentiment to the tweet.
+
+
+  ### Text: {OriginalTweet}
+
+
+  ### Timestamp: {TweetAt}
+
+
+  ### Location: {Location}
+
+
+  ### Sentiment: 
+expected_output_format: text
+input_columns: OriginalTweet, TweetAt, Location
+num_examples:
+  train: 37361
+  test: 3798
+  total: 41159
+split_used_for_evaluation: test

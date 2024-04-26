@@ -1,0 +1,31 @@
+dataset_name: glue_cola
+dataset_description: Grammar and syntax acceptability
+adapter_ui_name: Linguistic Acceptability (CoLA)
+adapter_category: Academic Benchmarks
+metric_name: binary_accuracy_flex
+split_column_value: 1
+data_path: glue_cola_full.csv
+training_data: glue_cola_full.csv
+target_col: label
+dataset_link: https://huggingface.co/datasets/glue/viewer/cola
+dataset: s3://tim-adapterland/glue_cola_full.csv
+split: validation
+split_column: split
+split_column_value: 1
+prompt_template: >-
+  Determine if the sentence below is syntactically and semantically correct.
+  If it is syntactically and semantically correct, respond "1". Otherwise,
+  respond "0".
+
+
+  Sentence: {sentence}
+
+
+  Label: 
+expected_output_format: number
+input_columns: sentence
+num_examples:
+  train: 8551
+  validation: 1043
+  test: 1063
+split_used_for_evaluation: validation

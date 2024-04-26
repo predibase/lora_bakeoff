@@ -1,0 +1,46 @@
+dataset_name: magicoder
+dataset_description: Coding tasks in multiple languages
+adapter_ui_name: Code Generation (magicoder)
+adapter_category: STEM
+metric_name: humaneval
+split_column_value: None
+training_data: magicoder_split.csv
+evaluation_data: HumanEval.jsonl
+dataset_link: https://huggingface.co/datasets/ise-uiuc/Magicoder-OSS-Instruct-75K
+dataset: magicoder_split.csv
+data_path: magicoder_split.csv
+split: None # HumanEval dataset
+prompt_template: >-
+    Below is a programming problem, paired with a language in which the solution
+    should be written. Write a solution in the provided that appropriately
+    solves the programming problem.
+
+
+    ### Problem: {problem}
+
+
+    ### Language: {lang}
+
+
+    ### Solution: 
+target_col: solution
+eval_prompt_template: >-
+    Below is a programming problem, paired with a language in which the solution
+    should be written. Write a solution in the provided that appropriately
+    solves the programming problem.
+
+
+    ### Problem: {prompt}
+
+
+    ### Language: python
+
+
+    ### Solution: 
+eval_target_col: canonical_solution
+dataset_link: https://huggingface.co/datasets/ise-uiuc/Magicoder-OSS-Instruct-75K
+expected_output_format: code
+input_columns: problem, lang
+num_examples:
+  train: 75197
+split_used_for_evaluation: (human_eval)

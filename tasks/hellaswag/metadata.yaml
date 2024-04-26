@@ -1,0 +1,35 @@
+dataset_name: hellaswag
+dataset_description: Multiple-choice sentence completion
+adapter_ui_name: Multiple Choice Sentence Completion (hellaswag)
+adapter_category: Other
+metric_name: hellaswag_accuracy
+split_column_value: 1
+data_path: hellaswag_full.csv
+training_data: hellaswag_full.csv
+target_col: label
+dataset_link: https://huggingface.co/datasets/Rowan/hellaswag
+dataset: s3://tim-adapterland/hellaswag_full.csv
+split: validation
+split_column: split
+split_column_value: 1
+prompt_template: >-
+  You are provided with an incomplete passage below as well as 4 endings in
+  quotes and separated by commas, with only one of them being the correct
+  ending. Treat the endings as being labelled 0, 1, 2, 3 in order. Please
+  respond with the number corresponding to the correct ending for the passage.
+
+
+  ### Passage: {ctx}
+
+
+  ### Endings: {endings}
+
+
+  ### Correct Ending Number: 
+expected_output_format: number
+input_columns: ctx, endings
+num_examples:
+  train: 39905
+  validation: 10003
+  test: 10042
+split_used_for_evaluation: validation

@@ -1,0 +1,29 @@
+dataset_name: arc_combined
+dataset_description: Multiple-choice science questions
+adapter_ui_name: ARC (Combined)
+adapter_category: Reasoning
+metric_name: arc_accuracy
+target_col: answerKey
+dataset_link: https://huggingface.co/datasets/allenai/ai2_arc
+data_path: arc_combined.train.csv
+dataset: arc_combined.train.csv
+training_data: arc_combined.train.csv
+evaluation_data: arc_combined.test.csv
+prompt_template: >-
+  {realized_prompt}
+expected_output_format: string
+num_examples:
+  # 1119 (challenge) + 2251 (easy)
+  train: 3370
+  # 299 (challenge) + 570 (easy)
+  validation: 869
+  # 1172 (challenge) + 2376 (easy)
+  test: 3548
+split_used_for_evaluation: test
+
+
+# To regenerate the dataset, run:
+# ```
+# from adapterland.custom_datasets.arc_preprocessor import ArcDatasetPreprocessor
+# ArcDatasetPreprocessor.write_processed_df()
+# ```

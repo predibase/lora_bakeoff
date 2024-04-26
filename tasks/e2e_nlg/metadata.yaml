@@ -1,0 +1,40 @@
+dataset_name: e2e_nlg
+dataset_description: Translation from meaning representation to natural language
+adapter_ui_name: Structured-to-Text (e2e_nlg)
+adapter_category: Structured-to-Text
+metric_name: rouge
+split_column_value: 2
+data_path: e2e_nlg_full.csv
+training_data: e2e_nlg_full.csv
+target_col: human_reference
+dataset_link: https://huggingface.co/datasets/e2e_nlg
+dataset: s3://tim-adapterland/e2e_nlg_full.csv
+split: validation
+split_column: split
+split_column_value: 2
+prompt_template: >-
+  You are given a meaning representation below. Please translate it into plain
+  English. Here is an example:
+
+
+  ### Meaning Representation: name[Blue Spice], eatType[coffee shop],
+  area[city centre]
+
+
+  ### Plain English: A coffee shop in the city centre area called Blue Spice.
+
+
+  Now please translate the following meaning representation:
+
+
+  ### Meaning Representation: {meaning_representation}
+
+
+  ### Plain English: 
+expected_output_format: text
+input_columns: meaning_representation
+num_examples:
+  train: 42061
+  validation: 4672
+  test: 4693
+split_used_for_evaluation: test

@@ -1,0 +1,35 @@
+dataset_name: glue_mnli
+dataset_description: Does the hypothesis entail the premise?
+adapter_ui_name: Natural Language Inference (MNLI)
+adapter_category: Academic Benchmarks
+metric_name: mnli_accuracy
+split_column_value: 1
+data_path: glue_mnli_matched_full.csv
+training_data: glue_mnli_full.csv
+target_col: label
+dataset_link: https://huggingface.co/datasets/nyu-mll/glue/viewer/mnli
+dataset: glue_mnli_matched_full.csv
+split: validation
+split_column: split
+prompt_template: >-
+  You are given a premise and a hypothesis below. If the premise entails the
+  hypothesis, return 0. If the premise contradicts the hypothesis, return 2.
+  Otherwise, if the premise does neither, return 1.
+
+
+  ### Premise: {premise}
+
+
+  ### Hypothesis: {hypothesis}
+
+
+  ### Label: 
+expected_output_format: number
+input_columns: premise, hypothesis
+num_examples:
+  train: 392702
+  # 9815 (validation_matched); 9832 (validation_mismatched)
+  validation: 19647
+  # 9796 (test_matched); 9847 (test_mismatched)
+  test: 19643
+split_used_for_evaluation: validation

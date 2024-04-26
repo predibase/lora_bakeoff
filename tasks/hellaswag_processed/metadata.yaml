@@ -1,0 +1,39 @@
+dataset_name: hellaswag_processed
+dataset_description: Sentence completion
+adapter_ui_name: Open-Ended Sentence Completion (hellaswag)
+adapter_category: Other
+metric_name: rouge
+split_column_value: 1
+data_path: hellaswag_full_processed.csv
+training_data: hellaswag_full_processed.csv
+target_col: correct_ending
+dataset_link: https://huggingface.co/datasets/Rowan/hellaswag
+dataset: s3://tim-adapterland/hellaswag_full_processed.csv
+split: validation
+split_column: split
+split_column_value: 1
+prompt_template: >-
+  You are provided with an incomplete passage below. Please read the passage
+  and then finish it with an appropriate response. For example:
+
+
+  ### Passage: My friend and I think alike. We
+
+
+  ### Ending: often finish each other's sentences.
+
+
+  Now please finish the following passage:
+
+
+  ### Passage: {ctx}
+
+
+  ### Ending: 
+expected_output_format: text
+input_columns: ctx
+num_examples:
+  train: 39905
+  validation: 10003
+  test: 10042
+split_used_for_evaluation: validation

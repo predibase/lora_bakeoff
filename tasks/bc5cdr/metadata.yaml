@@ -1,0 +1,41 @@
+dataset_name: bc5cdr
+dataset_description: Chemical and disease recognition
+adapter_ui_name: Chemical and Disease Recognition (bc5cdr)
+adapter_category: Named Entity Recognition
+metric_name: rouge
+data_path: bc5cdr.jsonl
+target_col: collected_tags
+dataset_link: https://huggingface.co/datasets/tner/bc5cdr
+data_path: bc5cdr.jsonl
+training_data: bc5cdr.jsonl
+dataset: bc5cdr.jsonl
+split: validation
+split_column: split
+split_column_value: 1
+prompt_template: >-
+  Your task is a Named Entity Recognition (NER) task. Predict the category of
+  each entity, then place the entity into the list associated with the
+  category in an output JSON payload. Below is an example:
+
+
+  Input: "Naloxone reverses the antihypertensive effect of clonidine ."
+
+
+  Output: {{'B-Chemical': ['Naloxone', 'clonidine'], 'B-Disease': [],
+  'I-Disease': [], 'I-Chemical': []}}
+
+
+  Now, complete the task.
+
+
+  Input: "{tokens_concatenated}"
+
+
+  Output: 
+expected_output_format: text
+input_columns: tokens_concatenated
+num_examples:
+  train: 5228
+  validation: 5330
+  test: 5865
+split_used_for_evaluation: validation

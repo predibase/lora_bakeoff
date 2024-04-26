@@ -1,0 +1,39 @@
+dataset_name: legal
+dataset_description: Legal document classification
+adapter_ui_name: Legal Clause Classification
+adapter_category: Topic Identification
+metric_name: rouge
+split_column_value: 1
+data_path: legal_full.csv
+training_data: legal_full.csv
+target_col: clause_type
+dataset_link: kaggle://bahushruth/legalclausedataset
+dataset: s3://tim-adapterland/legal_full.csv
+split: validation
+split_column: split
+split_column_value: 1
+prompt_template: |
+  You are a helpful, precise, detailed, and concise artificial intelligence
+  assistant with a deep expertise in reading and interpreting legal documents.
+  You are very intelligent and sharp, having a keen ability to discern the
+  essential type of the legal clause from the text of the legal clause itself.
+
+  In this task, you are asked to determine clause type from clause text.
+
+  You will be evaluated based on the following criteria:
+  - The generated answer is always one word (hyphens and underscores allowed).
+  - The generated answer is best possible brief categorization of clause text.
+
+  Categorize the clause text into a succinct clause type:
+
+  ### Clause Text: {clause_text}
+
+  ### Clause Type:
+expected_output_format: text
+input_columns: clause_text
+num_examples:
+  train: 17000
+  validation: 2000
+  test: 1000
+  total: 20000
+split_used_for_evaluation: test

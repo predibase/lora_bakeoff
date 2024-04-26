@@ -1,0 +1,22 @@
+dataset_name: reuters
+dataset_description: Topic extraction from Reuters news articles 
+adapter_ui_name: Reuters
+adapter_category: Understanding
+metric_name: rouge
+split_column_value: 2
+data_path: reuters21578_modlewis_full.csv
+training_data: reuters21578_modlewis_full.csv
+target_col: topics
+dataset_link: https://huggingface.co/datasets/reuters21578/viewer/ModLewis (modlewis)
+prompt_template: >-
+  You will be shown information about a news article. Given the title and article text, answer the following question: What is the topic of the article?
+
+  ### Title: {title}
+
+  ### Body: {text}
+
+  ### Topics:
+num_examples:
+  train: 13625
+  test: 6188
+split_used_for_evaluation: test

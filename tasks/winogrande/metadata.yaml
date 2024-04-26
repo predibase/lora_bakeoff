@@ -1,0 +1,31 @@
+dataset_name: winogrande_debiased
+dataset_description: Common sense 2-option task
+adapter_ui_name: Winogrande
+adapter_category: Reasoning
+metric_name: winogrande_accuracy
+data_path: winogrande_debiased.train.csv
+training_data: winogrande_debiased.train.csv
+target_col: answer
+dataset_link: https://huggingface.co/datasets/winogrande
+dataset: winogrande_debiased.train.csv
+training_data: winogrande_debiased.train.csv
+evaluation_data: winogrande_debiased.eval.csv
+prompt_template: >-
+  Given the following situation:
+
+  {sentence}
+
+  Which option is correct?
+
+  Option 1: {option1}
+
+  Option 2: {option2}
+
+  Answer (say 1 or 2): 
+expected_output_format: number
+input_columns: sentence, option1, option2
+num_examples:
+  train: 9248
+  validation: 1767
+  test: 1267
+split_used_for_evaluation: test

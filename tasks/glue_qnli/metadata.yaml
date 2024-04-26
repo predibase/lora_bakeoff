@@ -1,0 +1,34 @@
+dataset_name: glue_qnli
+dataset_description: Does the response answer the question?
+adapter_ui_name: Answer Validation (QNLI)
+adapter_category: Academic Benchmarks
+metric_name: binary_accuracy_flex
+split_column_value: 1
+data_path: glue_qnli_full.csv
+training_data: glue_qnli_full.csv
+target_col: label
+dataset_link: https://huggingface.co/datasets/glue/viewer/qnli
+dataset: s3://tim-adapterland/glue_qnli_full.csv
+split: validation
+split_column: split
+split_column_value: 1
+prompt_template: >-
+  You are provided a question and a corresponding response below. If the
+  response properly answers the question, please return 0. Otherwise, please
+  return 1.
+
+
+  ### Question: {question}
+
+
+  ### Response: {sentence}
+
+
+  ### Label: 
+expected_output_format: number
+input_columns: question, sentence
+num_examples:
+  train: 104743
+  validation: 5463
+  test: 5463
+split_used_for_evaluation: validation

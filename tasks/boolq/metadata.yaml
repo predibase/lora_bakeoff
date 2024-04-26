@@ -1,0 +1,23 @@
+dataset_name: boolq
+dataset_description: Knowledge-based yes/no questions.
+adapter_ui_name: BoolQ
+adapter_category: Academic Benchmarks
+metric_name: binary_accuracy_flex
+target_col: answer
+dataset_link: https://huggingface.co/datasets/google/boolq
+data_path: boolq_validation.csv
+evaluation_data: boolq_validation.csv
+training_data: boolq_train.csv
+dataset: boolq_validation.csv
+prompt_template: >-
+  {passage}
+
+  Question: {question}?
+
+  Please answer with only yes or no. Answer:
+expected_output_format: text
+input_columns: passage, question
+num_examples:
+  train: 9427
+  validation: 3270
+split_used_for_evaluation: validation

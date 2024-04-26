@@ -1,0 +1,32 @@
+dataset_name: dbpedia
+dataset_description: Topic extraction from a news article and title
+adapter_ui_name: News Topic Identification (dbpedia)
+adapter_category: Topic Identification
+metric_name: dbpedia
+split_column_value: None
+data_path: dbpedia_test.csv
+training_data: dbpedia_train.csv
+target_col: label
+dataset_link: https://huggingface.co/datasets/fancyzhx/dbpedia_14
+dataset: s3://tim-adapterland/dbpedia_test.csv
+split: None
+prompt_template: >-
+  You are given the title and the body of an article below. Please determine
+  the type of the article. Your possible options are: ["Company",
+  "EducationalInstitution", "Artist", "Athlete", "OfficeHolder",
+  "MeanOfTransportation", "Building", "NaturalPlace", "Village", "Animal",
+  "Plant", "Album", "Film", "WrittenWork"]
+
+  ### Title: {title}
+
+
+  ### Body: {content}
+
+
+  ### Article Type: 
+expected_output_format: number
+input_columns: title, content
+num_examples:
+  train: 560000
+  test: 70000
+split_used_for_evaluation: test
