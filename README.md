@@ -43,6 +43,8 @@ The preprocessing code, prompt templates, and splits for all of our experiments 
 
 ![img](img/training_config.png)
 
+Based on [Ludwig](https://ludwig.ai/latest/).
+
 ## Results
 
 ![img](img/performance_lift.png)
