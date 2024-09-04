@@ -7,3 +7,7 @@ torchmetrics
 nltk
 inflect
 predibase
+
+# for IFEval
+langdetect
+immutabledict

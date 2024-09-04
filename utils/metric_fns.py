@@ -2,7 +2,7 @@ from torchmetrics.text.rouge import ROUGEScore
 import json
 import re
 import inflect
-
+from utils.instruction_following_eval.evaluation_main import InputExample, test_instruction_following_loose, test_instruction_following_strict
 
 def get_accuracy(generated_text, target_text):
     if str(generated_text).strip(".").lower() == str(target_text).strip(".").lower():
@@ -301,6 +301,31 @@ def get_customer_support_accuracy(generated_text, target_text):
         return 1
     return 0
 
+def get_ifeval_instruction_following_loose(target, prompt_to_response):
+    target = target.reset_index(drop=True).iloc[0].to_dict()
+    try:
+        inp = InputExample(key=target["key"],
+                        instruction_id_list=target["instruction_id_list"],
+                        prompt=target["prompt"],
+                        kwargs=target["kwargs"])
+        out = test_instruction_following_loose(inp, prompt_to_response)
+        return out.follow_all_instructions
+    except Exception as e:
+        print(f"Encountered exception during ifeval_instruction_following_loose metric: {e}")
+        return 0
+
+def get_ifeval_instruction_following_strict(target, prompt_to_response):
+    target = target.reset_index(drop=True).iloc[0].to_dict()
+    try:
+        inp = InputExample(key=target["key"],
+                        instruction_id_list=target["instruction_id_list"],
+                        prompt=target["prompt"],
+                        kwargs=target["kwargs"])
+        out = test_instruction_following_strict(inp, prompt_to_response)
+        return out.follow_all_instructions
+    except Exception as e:
+        print(f"Encountered exception during ifeval_instruction_following_strict metric: {e}")
+        return 0
 
 METRIC_FNS = {
     "accuracy": get_accuracy,
@@ -316,4 +341,6 @@ METRIC_FNS = {
     "hellaswag_accuracy": get_hellaswag_accuracy,
     "customer_support_accuracy": get_customer_support_accuracy,
     "amazon_review_mpe": get_stsb,  # 1-5 ratings.
+    "ifeval_loose": get_ifeval_instruction_following_loose,
+    "ifeval_strict": get_ifeval_instruction_following_strict,
 }
