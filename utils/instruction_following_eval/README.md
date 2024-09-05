@@ -1,0 +1,1 @@
+All files in this subdirectory are, unless otherwise specified in the file itself, unmodified (barring import paths) versions of Google Research's IFEval Harness (https://github.com/google-research/google-research/tree/master/instruction_following_eval).

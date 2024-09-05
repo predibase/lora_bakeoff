@@ -1,0 +1,5 @@
+dataset_name: IFEval
+dataset_description: Miscellaneous instruction following
+metric_name: ifeval_loose
+data_path: datasets/ifeval_data.jsonl
+prompt_template: "{prompt}"
