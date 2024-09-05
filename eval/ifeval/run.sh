@@ -9,8 +9,8 @@ python prep_pbase_requests.py \
 python pbase_request_parallel_processor.py \
 	--requests_filepath 'eval/ifeval/results/requests.jsonl' \
 	--save_filepath 'eval/ifeval/results/responses.jsonl' \
-	--deployment_base_model 'tim-solar-mini' \
-	--tenant_id 'c1c29f' \
+	--deployment_base_model "NAME_OF_DEPLOYMENT" \
+	--tenant_id 'TENANT_ID_FROM_SETTINGS_PAGE' \
 
 ## Parse responses.
 python parse_if_eval.py \
