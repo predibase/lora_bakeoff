@@ -61,6 +61,25 @@ def get_binary_accuracy_flex(generated_text, target_text):
 
     return int(generated_prediction == target_prediction)
 
+def get_first_number_accuracy(generated_text, target_text):
+    """Tries to match based on vanilla accuracy. If not, then check for the consistent presence of (0 | 1 | 2)."""
+    vanilla_accuracy = get_accuracy(generated_text, target_text)
+    if vanilla_accuracy == 1:
+        return 1
+
+    # Get the first number.
+    generated_text_number = get_first_number(str(generated_text))
+    target_text_first_number = get_first_number(str(target_text))
+
+    if generated_text_number == target_text_first_number:
+        return 1
+    return 0
+
+def get_mmlu_accuracy(generated_text, target_text):
+    vanilla_accuracy = get_accuracy(generated_text, target_text)
+    if vanilla_accuracy == 1:
+        return 1
+    return get_first_number_accuracy(generated_text, target_text)
 
 def get_mrpc_accuracy(generated_text, target_text):
     """Tries to match based on vanilla accuracy. If not, then check for the consistent presence of (1 | 2)."""
@@ -343,4 +362,5 @@ METRIC_FNS = {
     "amazon_review_mpe": get_stsb,  # 1-5 ratings.
     "ifeval_loose": get_ifeval_instruction_following_loose,
     "ifeval_strict": get_ifeval_instruction_following_strict,
+    "mmlu_accuracy": get_mmlu_accuracy,
 }

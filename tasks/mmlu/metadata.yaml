@@ -5,27 +5,20 @@ adapter_ui_name: MMLU
 adapter_category: Knowledge
 metric_name: mmlu_accuracy
 dataset_link: https://huggingface.co/datasets/cais/mmlu/viewer/all
-data_path: mmlu.train.csv
+data_path: datasets/unformatted-mmlu_test_data.jsonl
 dataset: mmlu.train.csv
 training_data: mmlu.train.csv
 # Consistent with MMLU.
 # https://crfm.stanford.edu/helm/lite/latest/#/runs/mmlu:subject=abstract_algebra,method=multiple_choice_joint,model=01-ai_yi-34b
 # https://huggingface.co/datasets/cais/mmlu/viewer/all/validation
-evaluation_data: mmlu.validation.csv 
+evaluation_data: datasets/unformatted-mmlu_test_data.jsonl
 prompt_template: >-
-  {realized_prompt}
+  {prompt}
 expected_output_format: number
-target_col: answer
+target_col: completion
 num_examples:
   train: 99842
   validation: 1531
   dev: 285
   test: 14042
 split_used_for_evaluation: validation
-
-
-# To regenerate the dataset, run:
-# ```
-# from adapterland.custom_datasets.mmlu_preprocessor import MMLUDatasetPreprocessor
-# MMLUDatasetPreprocessor.write_processed_df()
-# ```
